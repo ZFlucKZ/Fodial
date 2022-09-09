@@ -6,6 +6,10 @@ const app = express();
 //* Set up express Router *//
 app.use('/', require('./routes'));
 
+//* Set up view engine *//
+app.set('view engine', 'ejs');
+app.set('views', './views');
+
 //* Set up express Server *//
 app.listen(port, function (err) {
   if (err) {
