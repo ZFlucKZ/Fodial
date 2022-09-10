@@ -3,6 +3,13 @@ const port = 8000;
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
+const cookieParser = require('cookie-parser');
+
+//* Recieve data from browser *//
+app.use(express.urlencoded());
+
+//* Cookie *//
+app.use(cookieParser());
 
 //* Set up express Layouts *//
 app.use(expressLayouts);
