@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongo')(session);
 
 //* Recieve data from browser *//
 app.use(express.urlencoded());
@@ -44,8 +45,18 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 100,
     },
+    store: new MongoStore(
+      {
+        mongooseConnection: db,
+        autoRemove: 'disabled',
+      },
+      function (err) {
+        console.log(err || 'Connect-mongoDB setup OK!');
+      }
+    ),
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
