@@ -10,6 +10,12 @@ router.get(
   usersController.profile
 );
 
+router.post(
+  '/update/:id',
+  passport.checkAuthentication,
+  usersController.update
+);
+
 router.get('/sign-in', usersController.signIn);
 router.get('/sign-up', usersController.signUp);
 
