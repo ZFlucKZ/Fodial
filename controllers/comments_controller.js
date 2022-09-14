@@ -1,57 +1,48 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 
-module.exports.create = function (req, res) {
+module.exports.create = async function (req, res) {
   // console.log('Post ID : ' + id);
-  const postID = req.body.post.trim();
-
-  Post.findById(postID, function (err, post) {
-    console.log('Post : ' + post);
-    if (err) {
-      console.log('Error in find a post on creating a comment');
-      return;
-    }
+  try {
+    const postID = await req.body.post.trim();
+    let post = await Post.findById(postID);
 
     if (post) {
-      Comment.create(
-        {
-          content: req.body.content,
-          user: req.user._id,
-          post: postID,
-        },
-        function (err, comment) {
-          //* handle error
-          if (err) {
-            console.log('Error in creating a comment');
-            return;
-          }
+      let comment = await Comment.create({
+        content: req.body.content,
+        user: req.user._id,
+        post: postID,
+      });
 
-          // console.log('Comment Created');
-          post.comments.push(comment);
-          post.save();
-          return res.redirect('back');
-        }
-      );
+      post.comments.push(comment);
+      post.save();
+      return res.redirect('back');
     }
-  });
+  } catch (err) {
+    console.log('Error', err);
+    return;
+  }
 };
 
-module.exports.destroy = function (req, res) {
-  Comment.findById(req.params.id, function (err, comment) {
+module.exports.destroy = async function (req, res) {
+  try {
+    let comment = await Comment.findById(req.params.id);
+
     if (comment.user == req.user.id) {
       let postID = comment.post;
 
-      comment.remove();
+      await comment.remove();
 
-      Post.findByIdAndUpdate(
-        postID,
-        { $pull: { comments: req.params.id } },
-        function (err, post) {
-          return res.redirect('back');
-        }
-      );
+      await Post.findByIdAndUpdate(postID, {
+        $pull: { comments: req.params.id },
+      });
+
+      return res.redirect('back');
     } else {
       return res.redirect('back');
     }
-  });
+  } catch {
+    console.log('Error', err);
+    return;
+  }
 };
