@@ -1,5 +1,6 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
+const { ObjectId } = require('mongodb');
 
 module.exports.create = function (req, res) {
   // console.log('Post ID : ' + id);
@@ -26,7 +27,7 @@ module.exports.create = function (req, res) {
             return;
           }
 
-          console.log('Comment Created');
+          // console.log('Comment Created');
           post.comments.push(comment);
           post.save();
           return res.redirect('back');
