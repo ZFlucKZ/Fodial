@@ -6,6 +6,10 @@ const db = require('./config/mongoose');
 const cookieParser = require('cookie-parser');
 const sassMiddleware = require('node-sass-middleware');
 
+//* Flash Message *//
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
+
 //* used for session cookie *//
 const session = require('express-session');
 const passport = require('passport');
@@ -68,6 +72,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+
+//* flash
+app.use(flash());
+app.use(customMware.setFlash);
 
 //* Set up express Router *//
 app.use('/', require('./routes'));
