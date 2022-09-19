@@ -12,6 +12,7 @@ exports.newComment = (comment) => {
       from: 'guyguy5050@gmail.com',
       to: comment.user.email,
       subject: 'New Comment Published!',
+      // text: 'Hello world?',
       html: htmlString,
     },
     (err, info) => {
