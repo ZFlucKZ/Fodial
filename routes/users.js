@@ -30,6 +30,11 @@ router.post(
 
 router.get('/sign-out', usersController.destroySession);
 
+router.get('/forgot_password', usersController.forgotPassword);
+router.post('/forgot_password_sendemail', usersController.sendLinkReset);
+router.get('/resetpassword/:token', usersController.resetPassword);
+router.post('/updatepassword', usersController.updatePassword);
+
 router.get(
   '/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
