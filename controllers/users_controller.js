@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const resetMailer = require('../mailers/reset_password');
-const { transporter } = require('../config/nodemailer');
 
 module.exports.profile = async function (req, res) {
   try {
@@ -34,14 +33,14 @@ module.exports.update = async function (req, res) {
 
         if (req.file) {
           if (user.avatar) {
-            console.log('if req.file if user.avatar block');
+            // console.log('if req.file if user.avatar block');
             fs.unlinkSync(path.join(__dirname, '..', user.avatar));
           }
 
-          console.log('if req.file block');
+          // console.log('if req.file block');
           user.avatar = User.avatarPath + '/' + req.file.filename;
         }
-        console.log('success');
+        // console.log('success');
         user.save();
         return res.redirect('back');
       });
