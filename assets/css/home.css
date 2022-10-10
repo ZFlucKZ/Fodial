@@ -1,10 +1,17 @@
 #home-container {
-  display: flex; }
+  display: flex;
+  background-color: #d3eafd; }
+  #home-container #home-title-container {
+    border-right: 1px gray solid; }
+  #home-container #home-title {
+    margin: 1rem 0.5rem;
+    text-align: center; }
   #home-container #feed-posts {
+    margin: auto;
     width: 70%;
     padding: 10px; }
   #home-container #user-friends {
-    width: 30%;
+    width: 10%;
     padding: 10px;
     border-left: 1px solid lightgrey;
     height: 100%; }

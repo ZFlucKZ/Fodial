@@ -40,33 +40,35 @@
   let newPostDom = function (data) {
     let post = data.post;
     let user = data.user;
-    return $(`<li id="post-${post._id}">
+    return $(`<li id="post-${post._id}" class="post-list-container">
               <p>
-                
+                <div class="flex-space-between">
+                <small class="name">
+                  ${user}
+                </small>
                   <small>
                     <a class="delete-post-button" href="/posts/destroy/${post._id} ">X</a>
                   </small>
-                 
-                  ${post.content}
-                      <br>
-                      <small>
-                      ${user}
-                      </small>
+                </div>
+                  <small class="content">
+                    ${post.content}
+                  </small>
+                  
                       <br>
                         <small>
-      
+                          <div class="like">
                                 <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">
                                     0 Likes
                                 </a>
-                            
+                          </div>
                         </small>
               </p>
               <div class="post-comments">
                 
                   <form action="/comments/create" method="post">
-                    <input type="text" name="content" placeholder="Comment Here...">
+                    <input type="text" name="content" placeholder="Comment Here..." class="text-comment">
                     <input type="hidden" name="post" value="${post._id}">
-                    <input type="submit" value="Comment">
+                    <input type="submit" value="Comment" class="btn">
                   </form>
               
                     <div class="posts-comments-list">

@@ -1,15 +1,26 @@
-#home-container{
-    display: flex;
-    
-    #feed-posts{
-        width: 70%;
-        padding: 10px;
-    }
+#home-container {
+  display: flex;
+  background-color: #d3eafd;
 
-    #user-friends{
-        width: 30%;
-        padding: 10px;
-        border-left: 1px solid lightgrey;
-        height: 100%;
-    }
+  #home-title-container {
+    border-right: 1px gray solid;
+  }
+
+  #home-title {
+    margin: 1rem 0.5rem;
+    text-align: center;
+  }
+
+  #feed-posts {
+    margin: auto;
+    width: 70%;
+    padding: 10px;
+  }
+
+  #user-friends {
+    width: 10%;
+    padding: 10px;
+    border-left: 1px solid lightgrey;
+    height: 100%;
+  }
 }

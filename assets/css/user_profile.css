@@ -1,2 +1,9 @@
 body {
   background-color: lightblue; }
+
+#form-input {
+  margin-top: 1rem; }
+  #form-input input {
+    margin-bottom: 1rem; }
+  #form-input input:nth-last-child(1) {
+    margin-bottom: 0; }

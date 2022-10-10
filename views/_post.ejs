@@ -1,46 +1,56 @@
+<link rel="stylesheet" href="/css/post.css">
+
 <section id="feed-posts">
-  <h4>Posts</h4>
+  <h4>What are you thinking?</h4>
 
   <% if(locals.user) { %>
     <form action="/posts/create" id="new-post-form" method="post">
-      <textarea id="text-post" name="content" cols="30" rows="3" placeholder="Type Here..."></textarea>
-      <input type="submit" value="Post">
+      <textarea id="text-post" name="content" cols="40" rows="5" placeholder="Type Here..."></textarea>
+      <br>
+      <input type="submit" value="Post" class="btn">
     </form>
     <% } %>
 
       <div id="posts-list-container">
         <ul>
           <% for(post of posts) { %>
-            <li id="post-<%= post._id%>">
+            <li id="post-<%= post._id%>" class="post-list-container">
               <p>
+              <div class="flex-space-between">
+                <small class="name">
+                  <%= post.user.name %>
+                </small>
                 <% if(locals.user && (locals.user.id==post.user.id)) { %>
-                  <small>
-                    <a class="delete-post-button" href="/posts/destroy/<%= post.id %> ">X</a>
+                  <small class="delete-post-button">
+                    <a href="/posts/destroy/<%= post.id %> ">X</a>
                   </small>
                   <% } %>
-                    <%= post.content %>
-                      <br>
-                      <small>
-                        <%= post.user.name %>
-                      </small>
-                      <br>
-                      <small>
-                        <% if (locals.user){ %>
-                          <a class="toggle-like-button" data-likes="<%= post.likes.length %>"
-                            href="/likes/toggle/?id=<%=post._id%>&type=Post">
-                            <%= post.likes.length %> Likes
-                          </a>
-                          <% }else{ %>
-                            <%= post.likes.length %> Likes
-                              <% } %>
-                      </small>
+              </div>
+              <small class="content">
+                <%= post.content %>
+              </small>
+              <br>
+              <small>
+                <% if (locals.user){ %>
+                  <div class="like">
+                    <a class="toggle-like-button" data-likes="<%= post.likes.length %>"
+                      href="/likes/toggle/?id=<%=post._id%>&type=Post">
+                      <%= post.likes.length %> Likes
+                    </a>
+                  </div>
+                  <% }else{ %>
+                    <div class="like">
+                      <%= post.likes.length %> Likes
+                    </div>
+                    <% } %>
+              </small>
               </p>
               <div class="post-comments">
                 <% if(locals.user) { %>
                   <form id="post-<%= post._id %>-comments-form" action="/comments/create" method="post">
-                    <input type="text" name="content" placeholder="Comment Here...">
+                    <input type="text" name="content" placeholder="Comment Here..." class="text-comment">
                     <input type="hidden" name="post" value="<%= post._id %> ">
-                    <input type="submit" value="Comment">
+                    <input type="submit" value="Comment" class="btn">
                   </form>
                   <% } %>
                     <div class="posts-comments-list">
